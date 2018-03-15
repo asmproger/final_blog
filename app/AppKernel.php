@@ -17,6 +17,27 @@ class AppKernel extends Kernel
             new Doctrine\Bundle\DoctrineBundle\DoctrineBundle(),
             new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
             new AppBundle\AppBundle(),
+
+            // FOS User bundle
+            new FOS\UserBundle\FOSUserBundle(),
+            // Sonata User Bundle
+            new Sonata\UserBundle\SonataUserBundle('FOSUserBundle'),
+
+            // Sonata Admin Bundle
+            new Sonata\CoreBundle\SonataCoreBundle(),
+            new Sonata\BlockBundle\SonataBlockBundle(),
+            new Knp\Bundle\MenuBundle\KnpMenuBundle(),
+
+            // And finally
+            new Sonata\AdminBundle\SonataAdminBundle(),
+            // Sonata doctrine orm admin bundle
+            new Sonata\DoctrineORMAdminBundle\SonataDoctrineORMAdminBundle(),
+
+            // For Sonata User BUndle
+            new Sonata\EasyExtendsBundle\SonataEasyExtendsBundle(),
+
+            // Some fucking magik %)
+            new Application\Sonata\UserBundle\ApplicationSonataUserBundle()
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {
