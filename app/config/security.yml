@@ -18,22 +18,28 @@ security:
     providers:
         fos_userbundle:
             id: fos_user.user_provider.username
+        hwi: #must be (i dnt know why, but its so)
+            id: custom.hwi.user.provider
+            #id: hwi_oauth.user.provider
+            #hwi_oauth.user.provider.fosub_bridge
 
     firewalls:
+        login:
+            pattern:  ^/login/?$
+            anonymous: ~
+
         secured_area:
+            logout: true
             anonymous: ~
             oauth:
                 resource_owners:
-                    #facebook:           "/login/check-facebook"
-                    google:             "/login/check-google"
-                    #my_custom_provider: "/login/check-custom"
-                    #my_github:          "/login/check-github"
+                    google: google_login
+                    facebook: facebook_login
                 login_path:        /login
                 use_forward:       false
                 failure_path:      /login
-
                 oauth_user_provider:
-                    service: hwi_oauth.user.provider
+                    service: custom.hwi.user.provider
 
         # disables authentication for assets and the profiler, adapt it according to your needs
         dev:
@@ -48,9 +54,6 @@ security:
                 use_forward:    false
                 check_path:     /admin/login_check
                 failure_path:   null
-            logout:
-                path:           /admin/logout
-                target:         /admin/login
             anonymous:          true
 
         main:
@@ -68,10 +71,11 @@ security:
             # https://symfony.com/doc/current/security/form_login_setup.html
             #form_login: ~
     access_control:
+        - { path: ^/logout, role: role: [ROLE_USER] }
         - { path: ^/restricted, role: IS_AUTHENTICATED_FULLY }
 
         # URL of FOSUserBundle which need to be available to anonymous users
-        - { path: ^/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/login/?$, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
 

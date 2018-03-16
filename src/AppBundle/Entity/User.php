@@ -8,14 +8,14 @@
 
 namespace AppBundle\Entity;
 
-use FOS\UserBundle\Model\User as FOSUser;
+use Sonata\UserBundle\Entity\BaseUser;
 use Doctrine\ORM\Mapping as ORM;
 
-/**
- * @ORM\Entity
- * @ORM\Table(name="fos_user_user")
- */
-class User extends FOSUser
+///**
+// * @ORM\Entity
+// * @ORM\Table(name="fos_user_user")
+// */
+class User extends BaseUser
 {
     /**
      * @ORM\Id

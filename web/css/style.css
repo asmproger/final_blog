@@ -104,3 +104,9 @@ code {
         animation: fade-in 1s .2s forwards;
     }
 }
+
+ul.social-login-links {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
