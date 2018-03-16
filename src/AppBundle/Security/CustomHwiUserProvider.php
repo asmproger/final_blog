@@ -75,24 +75,31 @@ class CustomHwiUserProvider extends FOSUBUserProvider
         /**
          * @var \Sonata\UserBundle\Entity\UserManager $wtf
          */
+
+        // fos_user_user facebookUid
+
         $user = $this->userManager->findUserBy(
             array(
                 $this->getProperty($response) => $username
             )
         );
-        //echo $this->getProperty($response) . '<br/>' . $username . '<br/>';
 
-        //die(gettype($user));
+        $service = $response->getResourceOwner()->getName();
+
         if (null === $user || null === $username) {
             try {
                 $user = $this->userManager->createUser();
-                $user->setUsername($response->getEmail());
+                $user->setUsername($username);
                 $user->setEmail($response->getEmail());
-                $user->googleUid = $response->getUsername();
                 $user->setEnabled(1);
                 $user->setPassword('123456');
 
-
+                if ($service == 'google') {
+                    $user->setGplusUid($response->getUsername());
+                    //$user->googleUid = $response->getUsername();
+                } elseif ($service == 'facebook') {
+                    $user->setFacebookUid($response->getUsername());
+                }
             } catch (\Exception $e) {
                 throw new AccountNotLinkedException(sprintf("User '%s' not found.", $username));
             }

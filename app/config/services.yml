@@ -45,8 +45,13 @@ services:
 
     custom.hwi.user.provider:
         class: AppBundle\Security\CustomHwiUserProvider
+        arguments:
+            $userManager: "@fos_user.user_manager"
+            $properties:
+                google: gplusUid
+                facebook: facebookUid
         #class: HWI\Bundle\OAuthBundle\Security\Core\User\FOSUBUserProvider
-        arguments: ["@fos_user.user_manager", google: gplusUid]
+        #arguments: ["@fos_user.user_manager", google: gplusUid, facebook: facebookUid]
         #google: gplusUid - field name in our entiy. see in your entity.
 
 #            $userManager: "@fos_user.user_manager"

@@ -126,6 +126,7 @@ hwi_oauth:
             type:                facebook
             client_id:           %fb_client_id%
             client_secret:       %fb_client_secret%
-            scope:               "email profile"
+            scope:               "email"
             options:
-                csrf: true
+                display: popup #dialog is optimized for popup window
+                auth_type: rerequest # Re-asking for Declined Permissions
