@@ -43,6 +43,7 @@ services:
         tags:
             - { name: sonata.admin, manager_type: orm, group: Common, label: Static pages }
 
+    # custom provider servce
     custom.hwi.user.provider:
         class: AppBundle\Security\CustomHwiUserProvider
         arguments:
@@ -50,17 +51,3 @@ services:
             $properties:
                 google: gplusUid
                 facebook: facebookUid
-        #class: HWI\Bundle\OAuthBundle\Security\Core\User\FOSUBUserProvider
-        #arguments: ["@fos_user.user_manager", google: gplusUid, facebook: facebookUid]
-        #google: gplusUid - field name in our entiy. see in your entity.
-
-#            $userManager: "@fos_user.user_manager"
-#            $properties: [~]
-#            arguments:
-#                  - '@fos_user.user_manager'
-#                  - arguments: **[ @fos_user.user_manager, { google: googleID }** ]
-
-#    <service id="hwi_oauth.user.provider" class="%hwi_oauth.user.provider.class%" public="false" />
-#                    <service id="hwi_oauth.user.provider.entity" class="%hwi_oauth.user.provider.entity.class%" abstract="true" public="false">
-#                        <argument type="service" id="doctrine" />
-#                    </service>

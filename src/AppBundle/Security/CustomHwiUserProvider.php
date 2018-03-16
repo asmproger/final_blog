@@ -27,10 +27,6 @@ use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * Custom user provider for hwioauthbundle
- * Class providing a bridge to use the FOSUB user provider with HWIOAuth.
- *
- * In order to use the class as a connector, the appropriate setters for the
- * property mapping should be available.
  *
  * @author Alexander <iam.asm89@gmail.com>
  */
@@ -48,63 +44,45 @@ class CustomHwiUserProvider extends FOSUBUserProvider
     }
 
     /**
+     * Overrided method
      * {@inheritdoc}
      */
     public function loadUserByOAuthUserResponse(UserResponseInterface $response)
     {
+        // not username, it's user id in social network
         $username = $response->getUsername();
-        /*
-         * Array (
-         * [id] => 113454264037914863245   ---  $response->getUsername()
-         * [email] => asmproger@gmail.com
-         * [verified_email] => 1
-         * [name] => Кирилл Совкуцан
-         * [given_name] => Кирилл
-         * [family_name] => Совкуцан
-         * [link] => https://plus.google.com/113454264037914863245
-         * [picture] => https://lh3.googleusercontent.com/-XdUIqdMkCWA/AAAAAAAAAAI/AAAAAAAAAAA/4252rscbv5M/photo.jpg
-         * [gender] => male
-         * [locale] => ru
-         * )
-         */
-
-        /**
-         * $this->getProperty($response)   -   return gplusUid from config file.
-         * as i understand, getusername returns social provider id, so we should search in our db whith id field
-         */
-        /**
-         * @var \Sonata\UserBundle\Entity\UserManager $wtf
-         */
-
-        // fos_user_user facebookUid
-
+        // user entity field name, associated with id from social network
+        $field = $this->getProperty($response);
+        // setter for this id in user entity
+        $method = 'set' . ucfirst($field);
+        // is there same id in our db?
         $user = $this->userManager->findUserBy(
             array(
-                $this->getProperty($response) => $username
+                $field => $username
             )
         );
 
         $service = $response->getResourceOwner()->getName();
 
+        // lets add new user
         if (null === $user || null === $username) {
             try {
                 $user = $this->userManager->createUser();
+
                 $user->setUsername($username);
                 $user->setEmail($response->getEmail());
                 $user->setEnabled(1);
+                // ugly hack. send email with password should be here?
                 $user->setPassword('123456');
 
-                if ($service == 'google') {
-                    $user->setGplusUid($response->getUsername());
-                    //$user->googleUid = $response->getUsername();
-                } elseif ($service == 'facebook') {
-                    $user->setFacebookUid($response->getUsername());
+                if(method_exists($user, $method)) {
+                    $user->$method($username);
                 }
             } catch (\Exception $e) {
                 throw new AccountNotLinkedException(sprintf("User '%s' not found.", $username));
             }
         }
-
+        // let's return normal user
         return $user;
     }
 }
