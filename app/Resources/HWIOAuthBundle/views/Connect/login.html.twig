@@ -2,11 +2,8 @@
     {% if error is defined and error %}
         <span>{{ error }}</span>
     {% endif %}
-    <ul class="social-login-links">
-        {% for owner in hwi_oauth_resource_owners() %}
-            <li>
-                <a href="{{ hwi_oauth_login_url(owner) }}">{{ owner | trans({}, 'HWIOAuthBundle') }}</a> <br/>
-            </li>
-        {% endfor %}
-    </ul>
+    {% for owner in hwi_oauth_resource_owners() %}
+        <a class="social-login-btn btn btn-default" href="{{ hwi_oauth_login_url(owner) }}">Login
+            with {{ owner | trans({}, 'HWIOAuthBundle') | capitalize }}</a>
+    {% endfor %}
 {% endblock hwi_oauth_content %}

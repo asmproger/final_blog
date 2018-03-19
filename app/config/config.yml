@@ -113,7 +113,7 @@ sonata_block:
         sonata.block.service.text: # used to if you plan to use Sonata user routes
 
 hwi_oauth:
-    firewall_names: [secured_area]
+    firewall_names: [main]
     resource_owners:
         google:
             type:                google
