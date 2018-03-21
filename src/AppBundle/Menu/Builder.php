@@ -18,6 +18,7 @@ class Builder implements ContainerAwareInterface
             ->addChild('Home', ['route' => 'homepage'])
             ->setLinkAttribute('class', 'blog-nav-item')
         ;
+
 // access services from the container!
         $em = $this->container->get('doctrine')->getManager();
 // findMostRecent and Blog are just imaginary examples

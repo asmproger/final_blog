@@ -1,29 +1,74 @@
 <div class="blog-masthead">
     <div class="container">
         <nav class="blog-nav top-menu-wrapper">
-            <a class="blog-nav-item {% if app.request.get('_route') == "homepage" %} active {% endif %}" href="{{ path("homepage") }}">Home</a>
-            <a class="blog-nav-item {% if app.request.get('_route') == "restricted" %} active {% endif %}" href="{{ path("restricted") }}">For users only</a>
+            <a class="blog-nav-item {% if app.request.get('_route') == "homepage" %} active {% endif %}"
+               href="{{ path("homepage") }}">Home</a>
+            <a class="blog-nav-item {% if app.request.get('_route') == "post_index" %} active {% endif %}"
+               href="{{ path("post_index") }}">Blog</a>
+
+            <a
+                    class="blog-nav-item {% if app.request.get('_route') == "static_page" and app.request.get('slug') == "about" %} active {% endif %}"
+                    href="{{ url("static_page", {"slug" : "about"}) }}">
+                About
+            </a>
+            <a
+                    class="blog-nav-item {% if app.request.get('_route') == "static_page" and app.request.get('slug') == "contacts" %} active {% endif %}"
+                    href="{{ url("static_page", {"slug" : "contacts"}) }}">
+                Contacts
+            </a>
+            <a
+                    class="blog-nav-item {% if app.request.get('_route') == "static_page" and app.request.get('slug') == "our-team" %} active {% endif %}"
+                    href="{{ url("static_page", {"slug" : "our-team"}) }}">
+                Our team
+            </a>
+
+            <a class="blog-nav-item {% if app.request.get('_route') == "restricted" %} active {% endif %}"
+               href="{{ path("restricted") }}">For users only</a>
             {#<a class="blog-nav-item" href="#">New features</a>#}
             {#<a class="blog-nav-item" href="#">Press</a>#}
             {#<a class="blog-nav-item" href="#">New hires</a>#}
             {#<a class="blog-nav-item" href="#">About</a>#}
-
             {#{{ knp_menu_render('AppBundle:Builder:mainMenu') }}#}
 
-            <p style="margin: 0; padding: 0;" class="navbar-right">
+            <ul class="nav navbar-nav navbar-right">
                 {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-                    <span class="blog-nav-item">
-                        {{ 'layout.logged_in_as'|trans({'%username%': app.user.username}, 'FOSUserBundle') }}
-                    </span>
+                    <li class="dropdown">
+                        <a href="#" class="blog-nav-item dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                            {{ app.user.username }} <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                                <li><a href="{{ url('post_new') }}">Add post</a></li>
+                            <li><a href="{{ url('fos_user_profile_show') }}">Profile</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="{{ url('fos_user_security_logout') }}">Logout</a></li>
+                        </ul>
+                    </li>
+                {% else %}
+                    <a class="blog-nav-item {% if app.request.get('_route') == "fos_user_security_login" %} active {% endif %}"
+                       href="{{ path("fos_user_security_login") }}">Login</a>
+                    /
+                    <a class="blog-nav-item {% if app.request.get('_route') == "fos_user_registration_register" %} active {% endif %}"
+                       href="{{ path("fos_user_registration_register") }}">Register</a>
+                {% endif %}
+            </ul>
+
+            {#<p style="margin: 0; padding: 0;" class="navbar-right">
+                {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                    <a class="blog-nav-item" href="{{ path('fos_user_profile_show') }}">
+                        {{ app.user.username }}
+                    </a>
+                    /
                     <a class="blog-nav-item" href="{{ path('fos_user_security_logout') }}">
                         {{ 'layout.logout'|trans({}, 'FOSUserBundle') }}
                     </a>
                 {% else %}
-                    <a class="blog-nav-item {% if app.request.get('_route') == "fos_user_security_login" %} active {% endif %}" href="{{ path("fos_user_security_login") }}">Login</a>
+                    <a class="blog-nav-item {% if app.request.get('_route') == "fos_user_security_login" %} active {% endif %}"
+                       href="{{ path("fos_user_security_login") }}">Login</a>
                     /
-                    <a class="blog-nav-item {% if app.request.get('_route') == "fos_user_registration_register" %} active {% endif %}" href="{{ path("fos_user_registration_register") }}">Register</a>
+                    <a class="blog-nav-item {% if app.request.get('_route') == "fos_user_registration_register" %} active {% endif %}"
+                       href="{{ path("fos_user_registration_register") }}">Register</a>
                 {% endif %}
-            </p>
+            </p>#}
         </nav>
     </div>
 </div>

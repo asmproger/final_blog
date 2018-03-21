@@ -29,12 +29,12 @@ services:
         public: true
         tags: ['controller.service_arguments']
 
-    sonata.admin.users:
-        class: AppBundle\Admin\UserAdmin
-        arguments: [~, AppBundle\Entity\User, ~]
-        tags:
-            - { name: sonata.admin, manager_type: orm, group: Users, label: Users }
-        public: true
+#    sonata.admin.users:
+#        class: AppBundle\Admin\UserAdmin
+#        arguments: [~, AppBundle\Entity\User, ~]
+#        tags:
+#            - { name: sonata.admin, manager_type: orm, group: Users, label: Users }
+#        public: true
 
     sonata.admin.static_pages:
         class: AppBundle\Admin\StaticPageAdmin

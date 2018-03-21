@@ -23,7 +23,6 @@ h6, .h6 {
 /*
  * Override Bootstrap's default container.
  */
-
 @media (min-width: 1200px) {
     .container {
         width: 970px;
@@ -39,6 +38,7 @@ h6, .h6 {
     background-color: #428bca;
     -webkit-box-shadow: inset 0 -2px 5px rgba(0,0,0,.1);
     box-shadow: inset 0 -2px 5px rgba(0,0,0,.1);
+    margin-bottom: 20px;
 }
 
 /* Nav links */
@@ -138,11 +138,11 @@ h6, .h6 {
  */
 
 .blog-post {
-    margin-bottom: 60px;
+    margin-bottom: 30px;
 }
 .blog-post-title {
     margin-bottom: 5px;
-    font-size: 40px;
+    font-size: 30px;
 }
 .blog-post-meta {
     margin-bottom: 20px;
@@ -183,4 +183,26 @@ nav.blog-nav.top-menu-wrapper ul {
     list-style: none;
     margin: 0;
     padding: 0;
+}
+
+.top-menu-wrapper .blog-nav-item.dropdown-toggle {
+    padding: 10px;
+}
+
+.top-menu-wrapper .nav .open > a,
+.top-menu-wrapper .nav .open > a:hover,
+.top-menu-wrapper .nav .open > a:focus,
+.top-menu-wrapper .nav > li > a:hover,
+.top-menu-wrapper .nav > li > a:focus {
+    background-color: transparent;
+}
+
+.top-menu-wrapper .dropdown-menu {
+    margin-top: 5px;
+}
+.top-menu-wrapper .dropdown-menu > li > a {
+    padding: 5px 20px;
+}
+.top-menu-wrapper .dropdown-menu .divider {
+    margin: 0;
 }

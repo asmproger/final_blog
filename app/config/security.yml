@@ -12,8 +12,6 @@ security:
         SONATA:
             - ROLE_SONATA_PAGE_ADMIN_PAGE_EDIT  # if you are using acl then this line must be commented
 
-
-
     # https://symfony.com/doc/current/security.html#b-configuring-how-users-are-loaded
     providers:
         fos_userbundle_admin:
@@ -37,12 +35,15 @@ security:
             form_login:
                 provider:       fos_userbundle_admin
                 login_path:     /admin/login
-                use_forward:    false
+                use_forward:    true
                 check_path:     /admin/login_check
                 failure_path:   null
+                default_target_path:    /admin
             anonymous:          true
             logout:
+                invalidate_session: false
                 path: /admin/logout
+                target: /admin/login
 
         main:
             pattern:             .*
@@ -62,7 +63,10 @@ security:
                 failure_path:      /login
                 oauth_user_provider:
                     service: custom.hwi.user.provider
-            logout:             true
+            logout:
+                path: /logout
+                target: /
+                invalidate_session: false
             anonymous:          true
 
     access_control:
