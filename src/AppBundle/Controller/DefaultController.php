@@ -2,9 +2,15 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\Image;
 use AppBundle\Entity\StaticPage;
+use AppBundle\Event\CustomEvent;
+use AppBundle\Form\RegistrationType;
+use AppBundle\Utils\FileUploader;
+use Application\Sonata\UserBundle\Entity\User;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 
 class DefaultController extends Controller
@@ -14,20 +20,12 @@ class DefaultController extends Controller
      */
     public function indexAction(Request $request)
     {
-
-        /*$fakeStr = "{'exp': '2521454015','username': 'fake','iat': '2521450415'}";
-        $fake = base64_encode($fakeStr);
-
-
-        $fakeToken = "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXUyJ9" . $fake . "pklNyQhI9vSFx-pVTL_FE6kfzfQlwMHdpqM5gBDNpho4or02dFpRhlGqZSUoW1UNi6DgXR366Cq8gsdh_Cwe_D7jo6PAAqT1xByBSGpyDBectAxtD54xq-sLT5DL7oTHHXbZSgtFSmcFCOVNwAHeZxR-xez4mNyMVaJMihqx4Je7595hHGRp3GnMqTnRBAthffLxVEVFrS-00P4JL9lUxj9qQBqqvKCqdxZ674BDLYOL7FRPW7Wud0AYkTNOxWkPOwUuSW3IxWXnmly2Ghsc9hhGOLa6UbI-gGiQ_cZX4gW35ZHNaCrOTdx4IDpmmnX1VRC9dL_mSFXPNxN5-c2HjH0joDk1C3_VQwWciOUNa5dDNuFuITx7K_uIKURPX0xd-2t217w8l8Gz4pqOzWlGsT-ajKyscX4c6ZuU2KtZuwsgE40_1MxcreDGaR4gJ1VsgYwwISACX0ISELKfdTdgRDpxgy9nIMIjS0yIIGxQtCneNJuildnuG0LDTsvoO57_5F1rf0sLpWUoc6JC7YxTGCLuLiNyn93uqJdTuQUYf_TPrbAUFs7jWKABHOhp4rLqWEKhAfMjozJWUC7rtIALTUuJGpbwM8QbrYZ4TQg6TVY9VNyCphwmgM3Uhtu";
-        die($fakeToken);
-
-
-        $tokenSrc = "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXUyJ9.eyJleHAiOjE1MjE0NTQwMTUsInVzZXJuYW1lIjoic2RzZGZzZGYiLCJpYXQiOiIxNTIxNDUwNDE1In0.pklNyQhI9vSFx-pVTL_FE6kfzfQlwMHdpqM5gBDNpho4or02dFpRhlGqZSUoW1UNi6DgXR366Cq8gsdh_Cwe_D7jo6PAAqT1xByBSGpyDBectAxtD54xq-sLT5DL7oTHHXbZSgtFSmcFCOVNwAHeZxR-xez4mNyMVaJMihqx4Je7595hHGRp3GnMqTnRBAthffLxVEVFrS-00P4JL9lUxj9qQBqqvKCqdxZ674BDLYOL7FRPW7Wud0AYkTNOxWkPOwUuSW3IxWXnmly2Ghsc9hhGOLa6UbI-gGiQ_cZX4gW35ZHNaCrOTdx4IDpmmnX1VRC9dL_mSFXPNxN5-c2HjH0joDk1C3_VQwWciOUNa5dDNuFuITx7K_uIKURPX0xd-2t217w8l8Gz4pqOzWlGsT-ajKyscX4c6ZuU2KtZuwsgE40_1MxcreDGaR4gJ1VsgYwwISACX0ISELKfdTdgRDpxgy9nIMIjS0yIIGxQtCneNJuildnuG0LDTsvoO57_5F1rf0sLpWUoc6JC7YxTGCLuLiNyn93uqJdTuQUYf_TPrbAUFs7jWKABHOhp4rLqWEKhAfMjozJWUC7rtIALTUuJGpbwM8QbrYZ4TQg6TVY9VNyCphwmgM3Uhtu";
-        $token = "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXUyJ9";
-        //$token = "eyJleHAiOjE1MjE0NTQwMTUsInVzZXJuYW1lIjoic2RzZGZzZGYiLCJpYXQiOiIxNTIxNDUwNDE1In0";
-        print_r(base64_decode($token));
-        die;*/
+        /**
+         * @var \Symfony\Component\HttpKernel\Debug\TraceableEventDispatcher $dispatcher
+         */
+        $event = new CustomEvent('WTF, BRO!');
+        $dispatcher = $this->get('event_dispatcher');
+        $dispatcher->dispatch(CustomEvent::EVENT_NAME, $event);
 
         // replace this example code with whatever you need
         return $this->render('default/index.html.twig', [
@@ -56,12 +54,49 @@ class DefaultController extends Controller
 
         $page = $this->getDoctrine()->getRepository(StaticPage::class)->findOneBy(['slug' => $slug]);
 
-        if(!$page || !$slug) {
+        if (!$page || !$slug) {
             throw new \Exception("Page not found");
         }
 
         return $this->render('default/page.html.twig', [
             'page' => $page
         ]);
+    }
+
+    /**
+     * @Route("/upload-photo", name="upload_photo")
+     */
+    public function uploadPhotoAction(Request $request)
+    {
+        /**
+         * @var \Symfony\Component\HttpFoundation\FileBag $files
+         * @var \Symfony\Component\HttpFoundation\File\UploadedFile $img
+         * @var \AppBundle\Utils\FileUploader $uploader
+         */
+        $files = $request->files;
+        $imageArray = $files->get('custom_registration_form');
+        if (isset($imageArray['photo_control'])) {
+            $img = $imageArray['photo_control'];
+            $uploader = $this->get('custom.file.uploader');
+            $image = $uploader->uploadImage($img);
+            $response = null;
+            if (null !== $image) {
+
+                $imagesPath = $this->getParameter('images_directory');
+
+                return new JsonResponse([
+                    'status' => true,
+                    'data' => [
+                        'id' => $image->getId(),
+                        'image' => '/uploaded_images/' . $image->getPath()
+                    ]
+                ], 200);
+            } else {
+                return new JsonResponse(['status' => false]);;
+            }
+        } else {
+            $response = new JsonResponse(['status' => false]);
+            return $response;
+        }
     }
 }

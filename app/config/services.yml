@@ -51,3 +51,19 @@ services:
             $properties:
                 google: gplusUid
                 facebook: facebookUid
+
+    custom.registration.form:
+        class: AppBundle\Form\RegistrationType
+        tags:
+            - { name: form.type, alias: custom_registration_form }
+
+#    fos_user.registration.form.type:
+#        class: AppBundle\Form\RegistrationType
+#        tags:
+#            - { name: form.type, alias: fos_user_registration }
+#        arguments:
+#            [ Application\Sonata\UserBundle\Entity\User ]
+
+    AppBundle\EventListener\ExceptionListener:
+        tags:
+            - { name: kernel.event_listener, event: kernel.exception }

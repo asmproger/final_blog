@@ -206,3 +206,9 @@ nav.blog-nav.top-menu-wrapper ul {
 .top-menu-wrapper .dropdown-menu .divider {
     margin: 0;
 }
+
+.registration-form-preview {
+    width: 150px;
+    height: auto;
+    display: block;
+}

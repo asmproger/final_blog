@@ -1,5 +1,5 @@
 imports:
-    - { resource: parameters.yml }
+    - { resource: parameters.xml }
     - { resource: security.yml }
     - { resource: services.yml }
 
@@ -7,6 +7,7 @@ imports:
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
     locale: en
+    images_directory: '%kernel.project_dir%/web/uploaded_images'
 
 framework:
     #esi: ~
@@ -80,16 +81,17 @@ swiftmailer:
 fos_user:
     db_driver: orm # other valid values are 'mongodb', 'couchdb' and 'propel'
     firewall_name: main
-    #user_class: Sonata\UserBundle\Entity\BaseUser
     user_class: Application\Sonata\UserBundle\Entity\User
     from_email:
         address: 'no-reply@test_blog.local'
         sender_name: 'test_blog robot'
     group:
-        #group_class:   Sonata\UserBundle\Entity\BaseGroup
         group_class:   Application\Sonata\UserBundle\Entity\Group
         group_manager: sonata.user.orm.group_manager                    # If you're using doctrine orm (use sonata.user.mongodb.group_manager for mongodb)
-
+    registration:
+        form:
+            name: custom_registration_form
+            type: AppBundle\Form\RegistrationType
     service:
         user_manager: sonata.user.orm.user_manager
 

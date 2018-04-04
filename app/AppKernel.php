@@ -77,6 +77,7 @@ class AppKernel extends Kernel
 
             $container->addObjectResource($this);
         });
-        $loader->load($this->getRootDir().'/config/config_'.$this->getEnvironment().'.yml');
+        $loader->load($this->getRootDir().'/config/config_'.$this->getEnvironment().'.php');
+        //$loader->load($this->getRootDir().'/config/config_'.$this->getEnvironment().'.yml');
     }
 }

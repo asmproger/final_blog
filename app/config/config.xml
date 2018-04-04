@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xmlns:framework="http://symfony.com/schema/dic/symfony"
+           xmlns:twig="http://symfony.com/schema/dic/twig"
+           xmlns:doctrine="http://symfony.com/schema/dic/doctrine"
+           xmlns:swiftmailer="http://symfony.com/schema/dic/swiftmailer"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services
+        http://symfony.com/schema/dic/services/services-1.0.xsd
+        http://symfony.com/schema/dic/symfony
+        http://symfony.com/schema/dic/symfony/symfony-1.0.xsd
+        http://symfony.com/schema/dic/twig
+        http://symfony.com/schema/dic/twig/twig-1.0.xsd
+        http://symfony.com/schema/dic/doctrine
+        http://symfony.com/schema/dic/doctrine/doctrine-1.0.xsd
+        http://symfony.com/schema/dic/swiftmailer
+        http://symfony.com/schema/dic/swiftmailer/swiftmailer-1.0.xsd">
+
+
+    <imports>
+        <import resource="parameters.yml" />
+        <import resource="security.yml" />
+        <import resource="services.yml" />
+    </imports>
+
+    <parameters>
+        <parameter key="locale">en</parameter>
+        <parameter key="images_directory">%kernel.project_dir%/web/uploaded_images</parameter>
+    </parameters>
+
+    <framework:config secret="%secret%" default-locale="%locale%" http-method-override="true">
+        <framework:translator>
+            <framework:fallback>%locale%</framework:fallback>
+        </framework:translator>
+        <framework:router resource="%kernel.project_dir%/app/config/routing.xml" />
+        <framework:validation enable-annotations="true" />
+        <framework:session handler-id="session.handler.native_file"
+                           save-path="%kernel.project_dir%/var/sessions/%kernel.environment%" />
+        <framework:templating>
+            <framework:engine>twig</framework:engine>
+        </framework:templating>
+    </framework:config>
+
+    <!-- Twig Configuration -->
+    <twig:config debug="%kernel.debug%" strict-variables="%kernel.debug%" />
+
+    <doctrine:config >
+        <doctrine:dbal
+                driver="pdo_mysql"
+                host="%database_host%"
+                port="%database_port%"
+                dbname="%database_dbname%"
+                user="%database_user%"
+                password="%database_password%"
+                charset="UTF8"
+        >
+            <doctrine:mapping-type name="json">Sonata\Doctrine\Types\JsonType</doctrine:mapping-type>
+        </doctrine:dbal>
+        <doctrine:orm auto-generate-proxy-classes="%kernel.debug%">
+            <doctrine:entity-manager name="default">
+                <doctrine:mapping name="AppBundle" />
+                <doctrine:mapping name="ApplicationSonataUserBundle" />
+                <doctrine:mapping name="SonataUserBundle" />
+                <doctrine:mapping name="FOSUserBundle" />
+            </doctrine:entity-manager>
+
+        </doctrine:orm>
+    </doctrine:config>
+
+    <swiftmailer:config transport="%mailer_transport%" host="%mailer_host%"
+                        username="%mailer_user%" password="%mailer_password%">
+        <swiftmailer:spool type="memory" />
+    </swiftmailer:config>
+
+</container>
+<!--
+fos_user:
+    db_driver: orm # other valid values are 'mongodb', 'couchdb' and 'propel'
+    firewall_name: main
+    user_class: Application\Sonata\UserBundle\Entity\User
+    from_email:
+        address: 'no-reply@test_blog.local'
+        sender_name: 'test_blog robot'
+    group:
+        group_class:   Application\Sonata\UserBundle\Entity\Group
+        group_manager: sonata.user.orm.group_manager                    # If you're using doctrine orm (use sonata.user.mongodb.group_manager for mongodb)
+    registration:
+        form:
+            name: custom_registration_form
+            type: AppBundle\Form\RegistrationType
+    service:
+        user_manager: sonata.user.orm.user_manager
+
+sonata_block:
+    blocks:
+        # enable the SonataAdminBundle block
+        sonata.admin.block.admin_list:
+            contexts: [admin]
+sonata_user:
+    class:
+        user: Application\Sonata\UserBundle\Entity\User
+        group: Application\Sonata\UserBundle\Entity\Group
+    security_acl: true
+    manager_type: orm # can be orm or mongodb
+
+sonata_block:
+    blocks:
+        #...
+        sonata.user.block.menu:    # used to display the menu in profile pages
+        sonata.user.block.account: # used to display menu option (login option)
+        sonata.block.service.text: # used to if you plan to use Sonata user routes
+
+hwi_oauth:
+    firewall_names: [main]
+    resource_owners:
+        google:
+            type:                google
+            client_id:           %google_client_id%
+            client_secret:       %google_client_secret%
+            scope:               "email profile"
+            options:
+                csrf: true
+        facebook:
+            type:                facebook
+            client_id:           %fb_client_id%
+            client_secret:       %fb_client_secret%
+            scope:               "email"
+            options:
+                display: popup #dialog is optimized for popup window
+                auth_type: rerequest # Re-asking for Declined Permissions
+
+ivory_ck_editor:
+    input_sync: true
+    default_config: base_config
+    configs:
+        base_config:
+            toolbar:
+                - { name: "styles", items: ['Bold', 'Italic', 'BulletedList', 'Link'] }-->
