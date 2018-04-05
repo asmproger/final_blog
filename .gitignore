@@ -1,5 +1,6 @@
 .idea
 /.web-server-pid
+/web/uploaded_images
 /app/config/parameters.yml
 /build/
 /phpunit.xml

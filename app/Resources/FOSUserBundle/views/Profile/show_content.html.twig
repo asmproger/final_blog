@@ -1,0 +1,15 @@
+{% trans_default_domain 'FOSUserBundle' %}
+<style>
+    .profile-picture {
+        width: 100%;
+    }
+</style>
+<div class="fos_user_user_show">
+    <div class="col-md-4">
+        <img class="profile-picture" src="{{ asset('uploaded_images/') ~ user.image.path }}" />
+    </div>
+    <div class="col-md-8">
+        <h3>{{ user.username }}</h3>
+        <p>{{ user.email }}</p>
+    </div>
+</div>

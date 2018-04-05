@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <a href="{{ path('post_index') }}">Back to the list</a>
+
+    <h3>{{ post.title }}</h3>
+    <div>
+        {{ post.body }}
+    </div>
+
+    <ul style="list-style: none;">
+        {#<li>
+            <a href="{{ path('post_edit', { 'id': post.id }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>#}
+    </ul>
+{% endblock %}

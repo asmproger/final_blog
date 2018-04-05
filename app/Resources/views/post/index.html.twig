@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+        <a style="float: right;"
+           class="text-right" href="{{ path('post_new') }}">Create a new post</a>
+        <br/>
+    {% endif %}
+
+    {% if posts is defined and posts|length > 0 %}
+
+        {% for post in posts %}
+            <div class="blog-post">
+                <h1 class="blog-post-title">
+                    <a href="{{ path('post_show', {id: post.id}) }}">
+                        {{ post.title }}
+                    </a>
+                </h1>
+                <p class="blog-post-meta">{{ post.getDateCreation|date('m-d-Y') }} by <a href="#">{{ post.author }}</a></p>
+                <div>
+                    {{ post.short }}
+                </div>
+                <small>Views: {{ post.views }}</small>
+            </div>
+        {% endfor %}
+    {% else %}
+        <div>
+            <p>
+                There is no posts. You can add <a href="{{ url('post_new') }}">one</a> right now.
+            </p>
+        </div>
+    {% endif %}
+
+{% endblock %}

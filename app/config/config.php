@@ -37,7 +37,8 @@ $container->loadFromExtension('framework', [
 
 $container->loadFromExtension('twig', [
     'debug' => '%kernel.debug%',
-    'strict_variables' => '%kernel.debug%'
+    'strict_variables' => '%kernel.debug%',
+    'form_themes' => ['bootstrap_3_layout.html.twig']
 ]);
 
 $container->loadFromExtension('doctrine', [
