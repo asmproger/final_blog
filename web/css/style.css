@@ -139,10 +139,11 @@ h6, .h6 {
 
 .blog-post {
     margin-bottom: 30px;
+    border-bottom: 1px solid #bdbdbd;
 }
 .blog-post-title {
     margin-bottom: 5px;
-    font-size: 30px;
+    font-size: 22px;
 }
 .blog-post-meta {
     margin-bottom: 20px;
@@ -211,4 +212,22 @@ nav.blog-nav.top-menu-wrapper ul {
     width: 150px;
     height: auto;
     display: block;
+}
+.blog-breadcrumb-menu {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    line-height: 30px;
+    height: 30px;
+}
+.blog-breadcrumb-item {
+    float: left;
+    display: inline-block;
+}
+.blog-breadcrumb-item-child {
+    margin-left: 15px;
+    text-decoration: underline;
+}
+.clear {
+    clear: both;
 }

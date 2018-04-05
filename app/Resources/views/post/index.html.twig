@@ -1,6 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
+    {% include 'partials/blog_breadcrumbs.html.twig' %}
     {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
         <a style="float: right;"
            class="text-right" href="{{ path('post_new') }}">Create a new post</a>
@@ -11,11 +12,11 @@
 
         {% for post in posts %}
             <div class="blog-post">
-                <h1 class="blog-post-title">
+                <h3 class="blog-post-title">
                     <a href="{{ path('post_show', {id: post.id}) }}">
                         {{ post.title }}
                     </a>
-                </h1>
+                </h3>
                 <p class="blog-post-meta">{{ post.getDateCreation|date('m-d-Y') }} by <a href="#">{{ post.author }}</a></p>
                 <div>
                     {{ post.short }}

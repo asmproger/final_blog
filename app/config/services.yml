@@ -57,13 +57,27 @@ services:
         tags:
             - { name: form.type, alias: custom_registration_form }
 
-#    fos_user.registration.form.type:
-#        class: AppBundle\Form\RegistrationType
-#        tags:
-#            - { name: form.type, alias: fos_user_registration }
-#        arguments:
-#            [ Application\Sonata\UserBundle\Entity\User ]
-
     AppBundle\EventListener\ExceptionListener:
         tags:
             - { name: kernel.event_listener, event: kernel.exception }
+
+    AppBundle\EventListener\RegistrationListener:
+        class: AppBundle\EventListener\RegistrationListener
+        arguments:
+            $entityManager: "@doctrine.orm.entity_manager"
+        tags:
+            - { name: kernel.event_listener, event: fos_user.registration.completed }
+
+    custom.file.uploader:
+        public: true
+        class: AppBundle\Utils\FileUploader
+        arguments:
+            $entityManager: "@doctrine.orm.entity_manager"
+            $directory: '%images_directory%'
+
+    custom.menu_builder:
+        class: AppBundle\Menu\Builder
+        arguments: ["@knp_menu.factory", "@request_stack", "@doctrine.orm.entity_manager"]
+        tags:
+            - { name: knp_menu.menu_builder, method: breadcrumbsMenu, alias: breadcrumb }
+        public: true

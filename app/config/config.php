@@ -2,7 +2,7 @@
 
 $this->import('parameters.yml');
 $this->import('security.yml');
-$this->import('services.xml');
+$this->import('services.yml');
 
 
 $container->setParameter('locale', 'en');

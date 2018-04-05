@@ -70,11 +70,11 @@ class Post
      */
     private $date_creation;
 
-//    /**
-//     * @ORM\ManyToOne(targetEntity="Application\Sonata\UserBundle\Entity\User", inversedBy="items")
-//     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
-//     */
-//    protected $author;
+    /**
+     * @ORM\ManyToOne(targetEntity="Application\Sonata\UserBundle\Entity\User", inversedBy="items")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+     */
+    protected $author;
 
     /**
      * @ORM\ManyToOne(targetEntity="Category", inversedBy="posts")

@@ -1,5 +1,6 @@
 {% extends 'base.html.twig' %}
 {% block body %}
+    {% include 'partials/blog_breadcrumbs.html.twig' %}
     <h1>Post creation</h1>
     {{ form_start(form) }}
         {#{{ form_widget(form) }}#}

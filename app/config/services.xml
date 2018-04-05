@@ -35,11 +35,11 @@
         <service id="AppBundle\EventListener\ExceptionListener" class="AppBundle\EventListener\ExceptionListener">
             <tag name="kernel.event_listener" event="kernel.exception" />
         </service>
+
         <service id="AppBundle\EventListener\RegistrationListener" class="AppBundle\EventListener\RegistrationListener">
             <argument key="$entityManager" type="service" id="doctrine.orm.entity_manager" />
             <tag name="kernel.event_listener" event="fos_user.registration.completed" />
         </service>
-
 
         <service id="custom.file.uploader" class="AppBundle\Utils\FileUploader" public="true">
             <argument key="$entityManager" type="service" id="doctrine.orm.entity_manager" />

@@ -1,11 +1,11 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <a href="{{ path('post_index') }}">Back to the list</a>
+    {% include 'partials/blog_breadcrumbs.html.twig' %}
 
     <h3>{{ post.title }}</h3>
     <div>
-        {{ post.body }}
+        {{ post.body|raw }}
     </div>
 
     <ul style="list-style: none;">

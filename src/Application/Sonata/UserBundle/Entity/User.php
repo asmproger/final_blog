@@ -56,9 +56,6 @@ class User extends BaseUser
         $this->image = $image;
     }
 
-    /**
-     * @ORM\OneToMany(targetEntity="Post", mappedBy="author")
-     */
     protected $items;
 
     /**

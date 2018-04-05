@@ -14,6 +14,7 @@
             <join-column name="image_id" />
         </one-to-one>
 
+        <one-to-many field="items" target-entity="AppBundle\Entity\Post" mapped-by="author" />
     </entity>
 
 </doctrine-mapping>
