@@ -40,6 +40,8 @@ class User extends BaseUser
 
     protected $photo_control;
 
+    protected $profile;
+
     /**
      * @return mixed
      */
@@ -106,5 +108,21 @@ class User extends BaseUser
     public function setPhotoControl($photo_control)
     {
         $this->photo_control = $photo_control;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getProfile()
+    {
+        return $this->profile;
+    }
+
+    /**
+     * @param mixed $profile
+     */
+    public function setProfile($profile)
+    {
+        $this->profile = $profile;
     }
 }
