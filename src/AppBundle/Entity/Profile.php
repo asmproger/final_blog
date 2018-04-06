@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -12,6 +13,12 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Profile
 {
+
+    public function __construct()
+    {
+        $this->images = new ArrayCollection();
+    }
+
     /**
      * @var int
      *
@@ -42,8 +49,10 @@ class Profile
     protected $sex;
 
     /**
-     *
+     * @ORM\ManyToMany(targetEntity="Image", inversedBy="profiles")
+     * @ORM\JoinTable(name="profiles_images")
      */
+    protected $images;
 
     /**
      * Get id.
@@ -53,6 +62,70 @@ class Profile
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getUser()
+    {
+        return $this->user;
+    }
+
+    /**
+     * @param mixed $user
+     */
+    public function setUser($user)
+    {
+        $this->user = $user;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getProfession()
+    {
+        return $this->profession;
+    }
+
+    /**
+     * @param mixed $profession
+     */
+    public function setProfession($profession)
+    {
+        $this->profession = $profession;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getSex()
+    {
+        return $this->sex;
+    }
+
+    /**
+     * @param mixed $sex
+     */
+    public function setSex($sex)
+    {
+        $this->sex = $sex;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getImages()
+    {
+        return $this->images;
+    }
+
+    /**
+     * @param mixed $images
+     */
+    public function setImages($images)
+    {
+        $this->images = $images;
     }
 
 }

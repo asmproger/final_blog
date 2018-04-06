@@ -6,12 +6,12 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Post
+ * Sex
  *
- * @ORM\Table(name="image")
- * @ORM\Entity(repositoryClass="AppBundle\Repository\ImageRepository")
+ * @ORM\Table(name="sex")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\SexRepository")
  */
-class Image
+class Sex
 {
 
     public function __construct()
@@ -36,20 +36,21 @@ class Image
     private $title;
 
     /**
-     * @var string|null
+     * @var string
      *
-     * @ORM\Column(name="path", type="text")
+     * @ORM\Column(name="code", type="string", length=255)
      */
-    private $path;
-
+    private $code;
 
     /**
-     * @var ArrayCollection
-     * @ORM\ManyToMany(targetEntity="Profile", mappedBy="images")
+     * @var $profiles
+     * @ORM\OneToMany(targetEntity="Profile", mappedBy="sex")
      */
     protected $profiles;
 
     /**
+     * Get id.
+     *
      * @return int
      */
     public function getId()
@@ -58,14 +59,22 @@ class Image
     }
 
     /**
-     * @param int $id
+     * Set title.
+     *
+     * @param string $title
+     *
+     * @return Sex
      */
-    public function setId($id)
+    public function setTitle($title)
     {
-        $this->id = $id;
+        $this->title = $title;
+
+        return $this;
     }
 
     /**
+     * Get title.
+     *
      * @return string
      */
     public function getTitle()
@@ -74,31 +83,31 @@ class Image
     }
 
     /**
-     * @param string $title
+     * Set code.
+     *
+     * @param string $code
+     *
+     * @return Sex
      */
-    public function setTitle($title)
+    public function setCode($code)
     {
-        $this->title = $title;
+        $this->code = $code;
+
+        return $this;
     }
 
     /**
-     * @return null|string
+     * Get code.
+     *
+     * @return string
      */
-    public function getPath()
+    public function getCode()
     {
-        return $this->path;
+        return $this->code;
     }
 
     /**
-     * @param null|string $path
-     */
-    public function setPath($path)
-    {
-        $this->path = $path;
-    }
-
-    /**
-     * @return ArrayCollection
+     * @return mixed
      */
     public function getProfiles()
     {
@@ -106,7 +115,7 @@ class Image
     }
 
     /**
-     * @param ArrayCollection $profiles
+     * @param mixed $profiles
      */
     public function setProfiles($profiles)
     {
