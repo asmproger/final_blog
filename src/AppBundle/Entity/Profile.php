@@ -22,9 +22,28 @@ class Profile
     private $id;
 
     /**
+     * One profile has one user
      * @ORM\OneToOne(targetEntity="Application\Sonata\UserBundle\Entity\User", mappedBy="profile")
      */
     protected $user;
+
+    /**
+     * many profiles can have one profession
+     * @ORM\ManyToOne(targetEntity="Profession", inversedBy="profiles")
+     * @ORM\JoinColumn(name="profession_id", referencedColumnName="id")
+     */
+    protected $profession;
+
+    /**
+     * many profiles can have one sex
+     * @ORM\ManyToOne(targetEntity="Sex", inversedBy="profiles")
+     * @ORM\JoinColumn(name="sex_id", referencedColumnName="id")
+     */
+    protected $sex;
+
+    /**
+     *
+     */
 
     /**
      * Get id.

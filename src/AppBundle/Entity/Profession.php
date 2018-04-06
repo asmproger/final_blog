@@ -15,7 +15,7 @@ class Profession
 {
     public function __construct()
     {
-        $this->users = new ArrayCollection();
+        $this->profiles = new ArrayCollection();
     }
 
     /**
@@ -41,9 +41,10 @@ class Profession
     private $code;
 
     /**
-     * One Profession has Many Users.
+     * One Profession has Many Profiles.
+     * @ORM\OneToMany(targetEntity="Profile", mappedBy="profession")
      */
-    private $users;
+    private $profiles;
 
     /**
      * Get id.
