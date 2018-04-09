@@ -25,11 +25,10 @@ class ExceptionSubscriber implements EventSubscriberInterface
     {
         return array(
             FOSUserEvents::REGISTRATION_COMPLETED => [
-                array('afterRegistration')
+                ['afterRegistration']
             ]
         );
     }
-
     public function afterRegistration(FilterUserResponseEvent $event)
     {
         /**

@@ -10,4 +10,18 @@ namespace AppBundle\Repository;
  */
 class ProfessionRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function getProfession($value = '')
+    {
+        $qb = $this->createQueryBuilder('p')
+            ->where('p.title LIKE :title')
+            ->setParameter('title', "%{$value}%")
+            ;
+
+        $result = $qb
+            ->getQuery()
+            ->getResult()
+        ;
+
+        return $result;
+    }
 }

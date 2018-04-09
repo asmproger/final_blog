@@ -2,6 +2,7 @@
 
 namespace Application\Sonata\UserBundle\Entity;
 
+use AppBundle\Entity\Profile;
 use Sonata\UserBundle\Entity\BaseUser;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
@@ -40,6 +41,9 @@ class User extends BaseUser
 
     protected $photo_control;
 
+    /**
+     * @var Profile
+     */
     protected $profile;
 
     /**

@@ -31,6 +31,7 @@ class RegistrationListener
         $image_id = intval(isset($params['image_id']) ? $params['image_id'] : 0);
 
         $user = $event->getUser();
+
         $image = $this->entityManager->getRepository(Image::class)->find($image_id);
         $user->setImage($image);
 

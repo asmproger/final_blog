@@ -16,7 +16,10 @@
 
         <one-to-many field="items" target-entity="AppBundle\Entity\Post" mapped-by="author" />
 
-        <one-to-one field="profile" target-entity="AppBundle\Entity\Profile" inversed-by="user" >
+        <one-to-one field="profile" target-entity="AppBundle\Entity\Profile" inversed-by="user">
+            <cascade>
+                <cascade-all />
+            </cascade>
             <join-column name="profile_id" />
         </one-to-one>
     </entity>

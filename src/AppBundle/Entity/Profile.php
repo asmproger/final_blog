@@ -36,8 +36,8 @@ class Profile
 
     /**
      * many profiles can have one profession
-     * @ORM\ManyToOne(targetEntity="Profession", inversedBy="profiles")
-     * @ORM\JoinColumn(name="profession_id", referencedColumnName="id")
+     * @ORM\ManyToOne(targetEntity="Profession", inversedBy="profiles", cascade={"persist", "remove"})
+     * @ORM\JoinColumn(name="profession_id", referencedColumnName="id", onDelete="SET NULL")
      */
     protected $profession;
 
@@ -127,5 +127,4 @@ class Profile
     {
         $this->images = $images;
     }
-
 }

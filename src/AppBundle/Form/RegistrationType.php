@@ -21,6 +21,7 @@ class RegistrationType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
+            ->add('profile', ProfileType::class)
             ->add('photo_control', FileType::class, [
                 'required' => false
             ])

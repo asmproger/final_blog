@@ -6,9 +6,22 @@ use AppBundle\Entity\StaticPage;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\RequestStack;
 
 class UserController extends Controller
 {
+    /**
+     * @Route("/people", name="people_page")
+     * @param Request $request
+     */
+    public function peopleAction(Request $request) {
+        $params = $request->request->all();
+        $sex = $request->get('sex');
+        die('_' . $sex . '_');
+        dump($request);
+        die;
+    }
+
     /**
      * @Route("/", name="user_photo")
      */

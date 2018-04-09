@@ -68,6 +68,11 @@ services:
         tags:
             - { name: kernel.event_listener, event: fos_user.registration.completed }
 
+    AppBundle\EventListener\DoctrineListener:
+        class: AppBundle\EventListener\DoctrineListener
+        tags:
+            - { name: doctrine.event_listener, event: prePersist }
+
     custom.file.uploader:
         public: true
         class: AppBundle\Utils\FileUploader

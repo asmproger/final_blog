@@ -1,16 +1,16 @@
 {% trans_default_domain 'FOSUserBundle' %}
 <script>
     $(document).on('click', '.custom_registration_form_upload_photo', function () {
-       $('#custom_registration_form_photo_control').click();
+        $('#custom_registration_form_photo_control').click();
     });
-    $(document).ready(function() {
+    $(document).ready(function () {
         $('#custom_registration_form_photo_control').fileupload({
             url: '{{ path('upload_photo') }}',
             dataType: 'json',
             done: function (e, data) {
                 console.log(data);
                 if (data.result.status) {
-                    $('.registration-form-preview').attr('src', data.result.data.image );
+                    $('.registration-form-preview').attr('src', data.result.data.image);
                     $('#custom_registration_form_image_id').val(data.result.data.id);
                 }
             },
@@ -52,19 +52,34 @@
     </div>
 
     <div class="form-group col-md-6">
-        <img src="" class="registration-form-preview" style="display: none;" onload="$(this).show();" onerror="$(this).hide();" >
+        {{ form_label(form.profile.profession.title) }}
+        {{ form_widget(form.profile.profession.title) }}
+        <p class="help-block">{{ form_errors(form.profile.profession.title) }}</p>
+    </div>
+
+    <div class="form-group col-md-6">
+        {{ form_label(form.profile.sex) }}
+        {{ form_widget(form.profile.sex) }}
+        <p class="help-block">{{ form_errors(form.profile.sex) }}</p>
+    </div>
+
+    <div class="form-group col-md-6">
+        <img src="" class="registration-form-preview" style="display: none;" onload="$(this).show();"
+             onerror="$(this).hide();">
         <a class="btn custom_registration_form_upload_photo">Upload photo?</a>
         {{ form_widget(form.photo_control, {'attr' : {'class' : 'form-control', 'style':''}}) }}
         {{ form_widget(form.image_id) }}
         <p class="help-block">{{ form_errors(form.photo_control) }}</p>
     </div>
+
 </fieldset>
 
 <div class="form-group">
     <div class="col-md-12 text-right">
         <input id="custom_registration_form_submit" name="custom_registration_form[submit]" type="submit"
                class="btn btn-default" value="{{ 'registration.submit'|trans }}">
-        <a href="{{ path("fos_user_security_login") }}">Already have an account?</a>
+        or
+        <a href="{{ path("fos_user_security_login") }}">login</a>
     </div>
 </div>
 {{ form_end(form) }}

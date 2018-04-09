@@ -121,4 +121,9 @@ class Sex
     {
         $this->profiles = $profiles;
     }
+
+    public function __toString()
+    {
+        return $this->title;
+    }
 }

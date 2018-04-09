@@ -2,7 +2,8 @@
 
 namespace AppBundle\Controller;
 
-use AppBundle\Entity\Image;
+use AppBundle\Entity\Profession;
+use AppBundle\Entity\Profile;
 use AppBundle\Entity\StaticPage;
 use AppBundle\Event\CustomEvent;
 use AppBundle\Form\RegistrationType;
@@ -23,9 +24,9 @@ class DefaultController extends Controller
         /**
          * @var \Symfony\Component\HttpKernel\Debug\TraceableEventDispatcher $dispatcher
          */
-        $event = new CustomEvent('WTF, BRO!');
+        /*$event = new CustomEvent('WTF, BRO!');
         $dispatcher = $this->get('event_dispatcher');
-        $dispatcher->dispatch(CustomEvent::EVENT_NAME, $event);
+        $dispatcher->dispatch(CustomEvent::EVENT_NAME, $event);*/
 
         // replace this example code with whatever you need
         return $this->render('default/index.html.twig', [

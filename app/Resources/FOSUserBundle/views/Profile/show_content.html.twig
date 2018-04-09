@@ -3,13 +3,34 @@
     .profile-picture {
         width: 100%;
     }
+    label {
+        min-width: 80px;
+    }
 </style>
 <div class="fos_user_user_show">
     <div class="col-md-4">
-        <img class="profile-picture" src="{{ asset('uploaded_images/') ~ user.image.path }}" />
+        <img class="profile-picture" src="{#{{ asset('uploaded_images/') ~ user.image.path }}#}" />
     </div>
     <div class="col-md-8">
-        <h3>{{ user.username }}</h3>
-        <p>{{ user.email }}</p>
+        <p>
+            <label>Username</label>
+            {{ user.username }}
+        </p>
+        <p>
+            <label>Sex</label>
+            <a href="#{{ user.profile.sex.id }}">
+                {{ user.profile.sex.title }}
+            </a>
+        </p>
+        <p>
+            <label>Email</label>
+            {{ user.email }}
+        </p>
+        <p>
+            <label>Profession</label>
+            <a href="#{{ user.profile.profession.id }}">
+                {{ user.profile.profession }}
+            </a>
+        </p>
     </div>
 </div>

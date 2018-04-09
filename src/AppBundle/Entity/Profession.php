@@ -30,13 +30,13 @@ class Profession
     /**
      * @var string
      *
-     * @ORM\Column(name="title", type="string", length=255)
+     * @ORM\Column(name="title", type="string", length=255, unique=true)
      */
     private $title;
 
     /**
      * @var string
-     * @ORM\Column(name="code", type="string", length=255)
+     * @ORM\Column(name="code", type="string", length=255, nullable=true, unique=true)
      */
     private $code;
 
@@ -94,5 +94,10 @@ class Profession
     public function setCode($code)
     {
         $this->code = $code;
+    }
+
+    public function __toString()
+    {
+        return $this->title;
     }
 }
