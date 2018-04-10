@@ -8,14 +8,12 @@
         {{ post.body|raw }}
     </div>
 
-    <ul style="list-style: none;">
-        {#<li>
-            <a href="{{ path('post_edit', { 'id': post.id }) }}">Edit</a>
-        </li>
-        <li>
-            {{ form_start(delete_form) }}
-                <input type="submit" value="Delete">
-            {{ form_end(delete_form) }}
-        </li>#}
-    </ul>
+    {#<li>
+        <a href="{{ path('post_edit', { 'id': post.id }) }}">Edit</a>
+    </li>
+    <li>
+        {{ form_start(delete_form) }}
+            <input type="submit" value="Delete">
+        {{ form_end(delete_form) }}
+    </li>#}
 {% endblock %}

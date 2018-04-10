@@ -231,3 +231,13 @@ nav.blog-nav.top-menu-wrapper ul {
 .clear {
     clear: both;
 }
+
+.fos_user_user_show label {
+    min-width: 80px;
+}
+.profile-image-preview {
+    width: 200px; float: left; margin-right: 10px;
+}
+.new-post-link {
+    float: right;
+ }

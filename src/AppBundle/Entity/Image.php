@@ -17,6 +17,7 @@ class Image
     public function __construct()
     {
         $this->profiles = new ArrayCollection();
+        $this->creation_date = new \DateTime();
     }
 
     /**
@@ -42,12 +43,24 @@ class Image
      */
     private $path;
 
+    /**
+     * @var \DateTime $creation_date
+     * @ORM\Column(name="creation_date", type="datetime", nullable=true)
+     */
+    private $creation_date;
+
+    /**
+     * @var string $token
+     * @ORM\Column(name="token")
+     */
+    private $token;
 
     /**
      * @var ArrayCollection
-     * @ORM\ManyToMany(targetEntity="Profile", mappedBy="images")
+     * @ORM\ManyToOne(targetEntity="Profile", inversedBy="images", cascade={"persist", "refresh"})
+     * @ORM\JoinColumn(name="profile_id", referencedColumnName="id")
      */
-    protected $profiles;
+    protected $profile;
 
     /**
      * @return int
@@ -112,4 +125,53 @@ class Image
     {
         $this->profiles = $profiles;
     }
+
+    /**
+     * @return \DateTime
+     */
+    public function getCreationDate()
+    {
+        return $this->creation_date;
+    }
+
+    /**
+     * @param \DateTime $creation_date
+     */
+    public function setCreationDate($creation_date)
+    {
+        $this->creation_date = $creation_date;
+    }
+
+    /**
+     * @return string
+     */
+    public function getToken()
+    {
+        return $this->token;
+    }
+
+    /**
+     * @param string $token
+     */
+    public function setToken($token)
+    {
+        $this->token = $token;
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getProfile()
+    {
+        return $this->profile;
+    }
+
+    /**
+     * @param ArrayCollection $profile
+     */
+    public function setProfile($profile)
+    {
+        $this->profile = $profile;
+    }
+
 }

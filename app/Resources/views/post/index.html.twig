@@ -3,8 +3,7 @@
 {% block body %}
     {% include 'partials/blog_breadcrumbs.html.twig' %}
     {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-        <a style="float: right;"
-           class="text-right" href="{{ path('post_new') }}">Create a new post</a>
+        <a class="text-right new-post-link" href="{{ path('post_new') }}">Create a new post</a>
         <br/>
     {% endif %}
 

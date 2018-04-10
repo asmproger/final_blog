@@ -70,8 +70,11 @@ services:
 
     AppBundle\EventListener\DoctrineListener:
         class: AppBundle\EventListener\DoctrineListener
+        arguments:
+            $requestStack: "@request_stack"
         tags:
             - { name: doctrine.event_listener, event: prePersist }
+            - { name: doctrine.event_listener, event: postPersist }
 
     custom.file.uploader:
         public: true

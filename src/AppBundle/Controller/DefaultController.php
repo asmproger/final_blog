@@ -22,6 +22,17 @@ class DefaultController extends Controller
     public function indexAction(Request $request)
     {
         /**
+         * @var User $user
+         * @var Profile $profile
+         */
+        /*$user_id = 68;
+        $user = $this->getDoctrine()->getManager()->getRepository(User::class)->find($user_id);
+        $profile = $user->getProfile();
+        $images = $profile->getImages();
+        dump($images);
+        die(gettype($images));*/
+
+        /**
          * @var \Symfony\Component\HttpKernel\Debug\TraceableEventDispatcher $dispatcher
          */
         /*$event = new CustomEvent('WTF, BRO!');
@@ -76,24 +87,25 @@ class DefaultController extends Controller
          */
         $files = $request->files;
         $imageArray = $files->get('custom_registration_form');
-        if (isset($imageArray['photo_control'])) {
-            $img = $imageArray['photo_control'];
-            $uploader = $this->get('custom.file.uploader');
-            $image = $uploader->uploadImage($img);
-            $response = null;
-            if (null !== $image) {
-
-                $imagesPath = $this->getParameter('images_directory');
-
-                return new JsonResponse([
-                    'status' => true,
-                    'data' => [
+        if (isset($imageArray['photo_control']) && !empty(isset($imageArray['photo_control']))) {
+            $response = [];
+            foreach($imageArray['photo_control'] as $img) {
+                $uploader = $this->get('custom.file.uploader');
+                $image = $uploader->uploadImage($img);
+                if (null !== $image) {
+                    $response[] = [
                         'id' => $image->getId(),
                         'image' => '/uploaded_images/' . $image->getPath()
-                    ]
+                    ];
+                } else {
+                    return new JsonResponse(['status' => false]);
+                }
+            }
+            if(!empty($response)) {
+                return new JsonResponse([
+                    'status' => true,
+                    'data' => $response
                 ], 200);
-            } else {
-                return new JsonResponse(['status' => false]);;
             }
         } else {
             $response = new JsonResponse(['status' => false]);

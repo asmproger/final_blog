@@ -36,6 +36,7 @@ class FileUploader
             $image = new Image();
             $image->setTitle($params['title']);
             $image->setPath($params['newName']);
+            $image->setToken(md5(time() . $params['newName']));
             try {
                 $this->entityManager->persist($image);
                 $this->entityManager->flush($image);

@@ -8,8 +8,10 @@
 
 namespace AppBundle\EventSubscriber;
 
+use AppBundle\Entity\Profile;
 use AppBundle\Event\CustomEvent;
 use Application\Sonata\UserBundle\Entity\User;
+use Doctrine\ORM\EntityManagerInterface;
 use FOS\UserBundle\Event\FilterUserResponseEvent;
 use FOS\UserBundle\FOSUserEvents;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -33,11 +35,15 @@ class ExceptionSubscriber implements EventSubscriberInterface
     {
         /**
          * @var User $user
+         * @var Profile $profile
          */
-        $params = $event->getRequest()->request->get('custom_registration_form');
-        $image_id = intval(isset($params['image_id']) ? $params['image_id'] : 0);
+        /*$user = $event->getUser();
+        $profile = $user->getProfile();
 
-        $user = $event->getUser();
-        $user->setImageId($image_id);
+        $params = $event->getRequest()->request->get('custom_registration_form');
+        $images_ids = (isset($params['image_id']) ? $params['image_id'] : '');
+        $images_ids = explode(',',$images_ids);
+
+        $profile->setImages($images_ids);*/
     }
 }

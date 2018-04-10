@@ -24,11 +24,6 @@
 
             <a class="blog-nav-item {% if app.request.get('_route') == "restricted" %} active {% endif %}"
                href="{{ path("restricted") }}">For users only</a>
-            {#<a class="blog-nav-item" href="#">New features</a>#}
-            {#<a class="blog-nav-item" href="#">Press</a>#}
-            {#<a class="blog-nav-item" href="#">New hires</a>#}
-            {#<a class="blog-nav-item" href="#">About</a>#}
-            {#{{ knp_menu_render('AppBundle:Builder:mainMenu') }}#}
 
             <ul class="nav navbar-nav navbar-right">
                 {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
@@ -51,24 +46,6 @@
                        href="{{ path("fos_user_registration_register") }}">Register</a>
                 {% endif %}
             </ul>
-
-            {#<p style="margin: 0; padding: 0;" class="navbar-right">
-                {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-                    <a class="blog-nav-item" href="{{ path('fos_user_profile_show') }}">
-                        {{ app.user.username }}
-                    </a>
-                    /
-                    <a class="blog-nav-item" href="{{ path('fos_user_security_logout') }}">
-                        {{ 'layout.logout'|trans({}, 'FOSUserBundle') }}
-                    </a>
-                {% else %}
-                    <a class="blog-nav-item {% if app.request.get('_route') == "fos_user_security_login" %} active {% endif %}"
-                       href="{{ path("fos_user_security_login") }}">Login</a>
-                    /
-                    <a class="blog-nav-item {% if app.request.get('_route') == "fos_user_registration_register" %} active {% endif %}"
-                       href="{{ path("fos_user_registration_register") }}">Register</a>
-                {% endif %}
-            </p>#}
         </nav>
     </div>
 </div>

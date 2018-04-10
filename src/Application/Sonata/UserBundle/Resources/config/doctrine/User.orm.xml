@@ -10,10 +10,6 @@
             <generator strategy="AUTO" />
         </id>
 
-        <one-to-one field="image" target-entity="AppBundle\Entity\Image">
-            <join-column name="image_id" />
-        </one-to-one>
-
         <one-to-many field="items" target-entity="AppBundle\Entity\Post" mapped-by="author" />
 
         <one-to-one field="profile" target-entity="AppBundle\Entity\Profile" inversed-by="user">

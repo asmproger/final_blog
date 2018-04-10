@@ -23,7 +23,8 @@ class RegistrationType extends AbstractType
         $builder
             ->add('profile', ProfileType::class)
             ->add('photo_control', FileType::class, [
-                'required' => false
+                'required' => false,
+                'multiple' => true
             ])
             ->add('image_id', HiddenType::class)
         ;

@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<style>
+    .people-list {
+        list-style: none;
+        margin: 0;
+    }
+    .people-list p {
+        font-weight: bold;
+        margin: 0;
+    }
+</style>
+    <div>
+        <h3>People</h3>
+        <ul class="people-list">
+            {% for item in items %}
+                <li>
+                    <p>
+                        {{ item.username }}
+                        {% if(item.isFollower) %}
+                            <a data-id="{{ item.id }}" class="btn un-follow-btn" href="javascript:void(0);">UnFollow</a>
+                        {% else %}
+                            <a data-id="{{ item.id }}" class="btn follow-btn" href="javascript:void(0);">Follow</a>
+                        {% endif %}
+                    </p>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+
+{% endblock %}

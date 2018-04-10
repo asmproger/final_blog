@@ -49,8 +49,7 @@ class Profile
     protected $sex;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Image", inversedBy="profiles")
-     * @ORM\JoinTable(name="profiles_images")
+     * @ORM\OneToMany(targetEntity="Image", mappedBy="profile", cascade={"persist", "refresh"})
      */
     protected $images;
 

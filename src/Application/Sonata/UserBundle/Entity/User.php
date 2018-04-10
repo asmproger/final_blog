@@ -129,4 +129,8 @@ class User extends BaseUser
     {
         $this->profile = $profile;
     }
+
+    public function isFollower() {
+        return false;
+    }
 }
