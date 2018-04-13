@@ -25,6 +25,9 @@
             <a class="blog-nav-item {% if app.request.get('_route') == "restricted" %} active {% endif %}"
                href="{{ path("restricted") }}">For users only</a>
 
+            <a class="blog-nav-item {% if app.request.get('_route') == "people" %} active {% endif %}"
+               href="{{ path("people_page") }}">Members</a>
+
             <ul class="nav navbar-nav navbar-right">
                 {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
                     <li class="dropdown">

@@ -89,7 +89,7 @@ class DefaultController extends Controller
         $imageArray = $files->get('custom_registration_form');
         if (isset($imageArray['photo_control']) && !empty(isset($imageArray['photo_control']))) {
             $response = [];
-            foreach($imageArray['photo_control'] as $img) {
+            foreach ($imageArray['photo_control'] as $img) {
                 $uploader = $this->get('custom.file.uploader');
                 $image = $uploader->uploadImage($img);
                 if (null !== $image) {
@@ -101,7 +101,7 @@ class DefaultController extends Controller
                     return new JsonResponse(['status' => false]);
                 }
             }
-            if(!empty($response)) {
+            if (!empty($response)) {
                 return new JsonResponse([
                     'status' => true,
                     'data' => $response

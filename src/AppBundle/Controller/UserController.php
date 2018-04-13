@@ -23,7 +23,7 @@ class UserController extends Controller
     }
 
     /**
-     * @Route("/people", name="people_page")
+     * @Route("/follow", name="people_follow")
      * @param Request $request
      */
     public function followAction(Request $request) {
