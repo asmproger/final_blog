@@ -6,6 +6,7 @@ use AppBundle\Entity\StaticPage;
 use Application\Sonata\UserBundle\Entity\User;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 
@@ -15,9 +16,12 @@ class UserController extends Controller
      * @Route("/people", name="people_page")
      * @param Request $request
      */
-    public function peopleAction(Request $request) {
+    public function peopleAction(Request $request)
+    {
         $items = $this->getDoctrine()->getRepository(User::class)->findAll();
+        $user = $this->getUser();
         return $this->render('user/people.html.twig', [
+            'user' => $user,
             'items' => $items,
         ]);
     }
@@ -26,8 +30,35 @@ class UserController extends Controller
      * @Route("/follow", name="people_follow")
      * @param Request $request
      */
-    public function followAction(Request $request) {
+    public function followAction(Request $request)
+    {
+        /**
+         * @var $user User
+         * @var $friend User
+         */
+        $user = $this->getUser();
+        if (!$user) {
+            return new JsonResponse([
+                'status' => false
+            ], 401);
+        }
 
+        $friend_id = $request->get('friend_id', 0);
+        $friend = $this->getDoctrine()->getManager()->getRepository(User::class)->find($friend_id);
+
+        if (!$friend_id) {
+            return new JsonResponse([
+                'status' => false
+            ], 200);
+        }
+
+        $user->addFriend($friend);
+        $this->getDoctrine()->getManager()->persist($user);
+        $this->getDoctrine()->getManager()->flush();
+
+        return new JsonResponse([
+            'status' => true
+        ], 200);
     }
 
     /**

@@ -22,6 +22,8 @@ class User extends BaseUser
     {
         parent::__construct();
         $this->items = new ArrayCollection();
+        $this->myFriends = new ArrayCollection();
+        $this->friendsWithMe = new ArrayCollection();
     }
 
     /**
@@ -63,6 +65,8 @@ class User extends BaseUser
     }
 
     protected $items;
+    protected $myFriends;
+    protected $friendsWithMe;
 
     /**
      * Get id.
@@ -130,7 +134,64 @@ class User extends BaseUser
         $this->profile = $profile;
     }
 
-    public function isFollower() {
-        return false;
+    /**
+     * he is in my friends
+     * @param User $user
+     * @return bool
+     */
+    public function isFriend(User $user) {
+        return $this->myFriends->contains($user);
     }
+
+    /**
+     * add user to myFriends
+     * @param User $user
+     */
+    public function addFriend(User $user) {
+        if(!$this->myFriends->contains($user)) {
+            $this->myFriends->add($user);
+        }
+    }
+
+    /**
+     * i'm in his friends
+     * @param User $user
+     * @return bool
+     */
+    public function isFriendWithMe(User $user) {
+        return $this->friendsWithMe->contains($user);
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getMyFriends()
+    {
+        return $this->myFriends;
+    }
+
+    /**
+     * @param ArrayCollection $myFriends
+     */
+    public function setMyFriends($myFriends)
+    {
+        $this->myFriends = $myFriends;
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getFriendsWithMe()
+    {
+        return $this->friendsWithMe;
+    }
+
+    /**
+     * @param ArrayCollection $friendsWithMe
+     */
+    public function setFriendsWithMe($friendsWithMe)
+    {
+        $this->friendsWithMe = $friendsWithMe;
+    }
+
 }
