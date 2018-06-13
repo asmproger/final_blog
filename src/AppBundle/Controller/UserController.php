@@ -43,6 +43,7 @@ class UserController extends Controller
             ], 401);
         }
 
+        $mode = $request->get('mode', 1);
         $friend_id = $request->get('friend_id', 0);
         $friend = $this->getDoctrine()->getManager()->getRepository(User::class)->find($friend_id);
 
@@ -52,7 +53,12 @@ class UserController extends Controller
             ], 200);
         }
 
-        $user->addFriend($friend);
+        if ($mode) {
+            $user->addFriend($friend);
+        } else {
+            $user->removeFriend($friend);
+        }
+
         $this->getDoctrine()->getManager()->persist($user);
         $this->getDoctrine()->getManager()->flush();
 

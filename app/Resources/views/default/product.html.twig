@@ -1,0 +1,56 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<style>
+    #payment-form {
+        text-align: right;
+    }
+    .stripe-button-el {
+        margin: 20px 0;
+    }
+</style>
+    <div class="blog-header">
+        <h1 class="blog-title">Product page</h1>
+        <p class="lead blog-description">Test product page for stripe.</p>
+    </div>
+
+    <div class="row">
+
+        <div class="col-sm-8 blog-main">
+
+            {% if success %}
+                <p><b>Payment successful!</b></p>
+            {% endif %}
+
+            <table>
+                <tr>
+                    <td rowspan="2">
+                        <img src="/img/barbell.jpg" style="max-width: 200px;" />
+                    </td>
+                </tr>
+                <tr>
+                    <td style="padding-left: 20px;" valign="top">
+                        Yaheetech 55lb Olympic Barbell Dumbbell Weight Set Gym Lifting Exercise Workout Olympic Bar Curl Bar
+                        <br/>
+                        <br/>
+                        <b>{{ price }} $</b>
+                    </td>
+                </tr>
+            </table>
+
+            <form action="/charge" method="post" id="payment-form">
+                <input type="hidden" name="price" value="{{ price }}">
+                <input type="hidden" name="id" value="{{ id }}">
+                <script
+                        src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+                        data-key="pk_test_UWUKSVvaOPcioSGxbFl5hfBG"
+                        data-amount="{{ price * 100 }}"
+                        data-name="Demo Site"
+                        data-description="Widget"
+                        data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
+                        data-locale="auto">
+                </script>
+            </form>
+        </div>
+    </div>
+{% endblock %}

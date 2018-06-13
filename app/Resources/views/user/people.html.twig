@@ -2,28 +2,42 @@
 
 {% block body %}
     <script>
-        $(document).on('click', '.un-follow-btn', function(e) {
-            alert('ok');
-        });
-        $(document).on('click', '.follow-btn', function(e) {
-            var self = $(this);
-            var id = self.data('id');
+        function followRequest(mode) {
+            mode = parseInt(mode);
+            var prefix1 = '', prefix2 = '', caption = '';
+            if(mode === 1) { // follow
+                prefix1 = '';
+                prefix2 = 'un-';
+                caption = 'UnFollow';
+            } else { // unfollow
+                prefix1 = 'un-';
+                prefix2 = '';
+                caption = 'UnFollow';
+            }
             $.ajax({
                 url: '{{ path("people_follow") }}',
                 type: 'post',
                 dataType: 'json',
                 data: {
-                    friend_id: id
+                    friend_id: id,
+                    mode: mode
                 },
                 success:function(response) {
-                    self.html('UnFollow');
-                    self.removeClass('follow-btn');
-                    self.addClass('un-follow-btn');
+                    self.html(caption);
+                    self.removeClass(prefix1 + 'follow-btn');
+                    self.addClass(prefix2 + 'follow-btn');
                 },
                 error: function (response) {
-                    alert('error');
-                },
+                }
             });
+        }
+        $(document).on('click', '.un-follow-btn', function(e) {
+            var self = $(this);
+            followRequest(0, self.data('id'));
+        });
+        $(document).on('click', '.follow-btn', function(e) {
+            var self = $(this);
+            followRequest(1, self.data('id'));
         });
     </script>
     <style>

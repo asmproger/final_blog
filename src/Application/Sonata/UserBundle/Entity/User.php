@@ -154,6 +154,16 @@ class User extends BaseUser
     }
 
     /**
+     * add user to myFriends
+     * @param User $user
+     */
+    public function removeFriend(User $user) {
+        if($this->myFriends->contains($user)) {
+            $this->myFriends->remove($user);
+        }
+    }
+
+    /**
      * i'm in his friends
      * @param User $user
      * @return bool
